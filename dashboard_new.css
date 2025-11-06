@@ -1,0 +1,1378 @@
+/* Dashboard Container */
+.dashboard-page {
+    background: #f5f5f5;
+    min-height: calc(100vh - 80px);
+    padding: 0;
+}
+
+.dashboard-page .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Dashboard Layout */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 30px;
+    padding: 30px 0;
+    align-items: start;
+}
+
+/* Sidebar */
+.dashboard-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+/* Profile Card */
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    padding: 32px 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+    
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    background: #e8e8e8;
+    border-radius: 50%;
+    margin: 0 auto 20px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #e8e8e8;
+    color: #999;
+}
+
+.profile-avatar-placeholder i {
+    font-size: 48px;
+    color: #999;
+}
+
+.profile-name {
+    font-size: 22px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+}
+
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.btn-profile {
+    flex: 1;
+    display: inline-block;
+    padding: 12px 16px;
+    border: 2px solid #1a1a1a;
+    border-radius: 30px;
+    color: #1a1a1a;
+    text-decoration: none;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: white;
+}
+
+.btn-profile:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Wallet Section */
+.wallet-section {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wallet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 16px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.wallet-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #666;
+    letter-spacing: 0.5px;
+}
+
+.wallet-balance {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.wallet-promo {
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 16px 0;
+    display: block;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 16px;
+    transition: color 0.2s;
+}
+
+.wallet-promo:hover {
+    color: #0052a3;
+    text-decoration: underline;
+}
+
+.wallet-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-outline {
+    display: block;
+    width: 100%;
+    padding: 14px 20px;
+    border: 2px solid #1a1a1a;
+    border-radius: 30px;
+    color: #1a1a1a;
+    text-decoration: none;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: white;
+}
+
+.btn-outline:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Main Content */
+.dashboard-main {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Invite Friend Card */
+.invite-friend {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-top: 4px solid #00a862;
+}
+
+.invite-content {
+    flex: 1;
+}
+
+.invite-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #00a862;
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+}
+
+.invite-text {
+    color: #1a1a1a;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    max-width: 500px;
+}
+
+.btn-invite {
+    display: inline-block;
+    padding: 12px 28px;
+    border: 2px solid #1a1a1a;
+    border-radius: 30px;
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: white;
+}
+
+.btn-invite:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+.invite-icon {
+    width: 80px;
+    height: 80px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 32px;
+    flex-shrink: 0;
+}
+
+.invite-icon i {
+    font-size: 36px;
+    color: #00a862;
+}
+
+/* Pets Section */
+.pets-section {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.pets-header {
+    margin-bottom: 8px;
+}
+
+.pets-title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.pets-description {
+    color: #666;
+    font-size: 15px;
+    margin-bottom: 24px;
+}
+
+.add-pet-box {
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    padding: 60px 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.add-pet-box:hover {
+    border-color: #00a862;
+    background: #f9fdf9;
+}
+
+.add-pet-icon {
+    width: 64px;
+    height: 64px;
+    background: #f5f5f5;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    transition: all 0.3s;
+}
+
+.add-pet-box:hover .add-pet-icon {
+    background: #00a862;
+}
+
+.add-pet-icon i {
+    font-size: 28px;
+    color: #666;
+    transition: all 0.3s;
+}
+
+.add-pet-box:hover .add-pet-icon i {
+    color: white;
+}
+
+.add-pet-text {
+    color: #1a1a1a;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+/* Pet List */
+.pet-list {
+    display: grid;
+    gap: 16px;
+}
+
+.pet-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+.pet-card:hover {
+    background: #f0f0f0;
+}
+
+.pet-info h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 4px;
+}
+
+.pet-info p {
+    font-size: 14px;
+    color: #666;
+}
+
+.pet-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-icon {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: white;
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: 1px solid #ddd;
+}
+
+.btn-icon:hover {
+    background: #00a862;
+    color: white;
+    border-color: #00a862;
+}
+
+.btn-icon.delete:hover {
+    background: #d32f2f;
+    border-color: #d32f2f;
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+}
+
+.btn-primary {
+    background: #00a862;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #008d52;
+}
+
+.btn-full-green {
+    width: 100%;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f5f5f5;
+    border-radius: 50%;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+    background: #e8e8e8;
+    color: #1a1a1a;
+}
+
+.form-header {
+    margin-bottom: 28px;
+}
+
+.form-header h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    color: #666;
+    font-size: 15px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #00a862;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .dashboard-layout {
+        grid-template-columns: 280px 1fr;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .dashboard-sidebar {
+        position: static;
+    }
+
+    .invite-friend {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .invite-icon {
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+/* ADD THESE STYLES TO YOUR EXISTING dashboard_new.css */
+
+/* Welcome Banner */
+.welcome-banner {
+    background: linear-gradient(135deg, #00a862, #00c875);
+    color: white;
+    padding: 32px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 168, 98, 0.3);
+}
+
+.welcome-content h1 {
+    font-size: 28px;
+    margin: 0 0 8px 0;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.welcome-content p {
+    margin: 0;
+    opacity: 0.9;
+    font-size: 16px;
+}
+
+.user-type-badge-inline {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.user-type-badge-inline.sitter {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+.user-type-badge-inline.owner {
+    background: rgba(255, 107, 157, 0.3);
+}
+
+/* Profile Completion Widget */
+.profile-completion-widget {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 16px 24px;
+    border-radius: 50px;
+}
+
+.completion-circle {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+.completion-circle svg {
+    transform: rotate(-90deg);
+}
+
+.completion-percent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}
+
+.completion-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.completion-text strong {
+    font-size: 16px;
+    color: white;
+}
+
+.completion-text a {
+    color: white;
+    font-size: 14px;
+    text-decoration: underline;
+    opacity: 0.9;
+}
+
+.completion-text a:hover {
+    opacity: 1;
+}
+
+.verified-badge-large {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.verified-badge-large i {
+    font-size: 24px;
+}
+
+/* Verification Badges in Sidebar */
+.verification-notice-small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #fff3cd;
+    color: #856404;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.verification-badge-small {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background: #d4edda;
+    color: #155724;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+/* Stats Card (Sitter) */
+.stats-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.stats-card h4 {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 14px;
+}
+
+.stat-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+.stat-value.highlight {
+    color: #00a862;
+}
+
+/* Pet Photo Thumbnail */
+.pet-photo-thumb {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.pet-photo-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.pet-photo-thumb.placeholder {
+    background: #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.pet-photo-thumb.placeholder i {
+    font-size: 24px;
+    color: #999;
+}
+
+.pet-card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    transition: all 0.2s;
+}
+
+/* Bookings Section */
+.bookings-section {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 24px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.section-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.btn-link {
+    color: #00a862;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.btn-link:hover {
+    color: #008d52;
+    text-decoration: underline;
+}
+
+.empty-bookings {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+}
+
+.empty-bookings i {
+    font-size: 64px;
+    margin-bottom: 16px;
+    display: block;
+    color: #ccc;
+}
+
+.empty-bookings p {
+    font-size: 18px;
+    margin: 8px 0;
+    color: #666;
+}
+
+.empty-bookings .helper-text {
+    font-size: 14px;
+    color: #999;
+    margin-top: 8px;
+}
+
+.empty-bookings .btn-primary {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: #00a862;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.empty-bookings .btn-primary:hover {
+    background: #008d52;
+    transform: translateY(-2px);
+}
+
+/* Booking Cards */
+.bookings-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.booking-card {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 20px;
+    align-items: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+    border-left: 4px solid #00a862;
+    transition: all 0.2s;
+}
+
+.booking-card:hover {
+    background: #f0f0f0;
+    transform: translateX(4px);
+}
+
+.booking-sitter-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.sitter-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.sitter-avatar-placeholder {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: #e8e8e8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+    font-size: 20px;
+}
+
+.booking-sitter-info h4 {
+    margin: 0 0 4px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.booking-location {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.booking-phone {
+    color: #666;
+    font-size: 13px;
+    margin: 4px 0 0 0;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.booking-details {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.booking-date,
+.booking-service {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    font-size: 14px;
+}
+
+.booking-date i,
+.booking-service i {
+    color: #00a862;
+}
+
+.booking-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #00a862;
+}
+
+.booking-status-badge {
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.booking-status-badge.pending_payment {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.booking-status-badge.confirmed {
+    background: #d4edda;
+    color: #155724;
+}
+
+.booking-status-badge.completed {
+    background: #d1ecf1;
+    color: #0c5460;
+}
+
+.booking-status-badge.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.booking-actions {
+    display: flex;
+    gap: 8px;
+    grid-column: 1 / -1;
+    margin-top: 8px;
+    padding-top: 16px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.btn-action {
+    flex: 1;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-action.accept {
+    background: #00a862;
+    color: white;
+}
+
+.btn-action.accept:hover {
+    background: #008d52;
+}
+
+.btn-action.decline {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.btn-action.decline:hover {
+    background: #e8e8e8;
+    color: #333;
+}
+
+/* Profile Actions Enhancement */
+.profile-actions {
+    display: flex;
+    gap: 10px;
+    padding-top: 20px;
+    border-top: 1px solid #e8e8e8;
+}
+
+.profile-link {
+    flex: 1;
+    display: inline-block;
+    padding: 10px 12px;
+    border: 2px solid #1a1a1a;
+    border-radius: 30px;
+    color: #1a1a1a;
+    text-decoration: none;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+    background: white;
+}
+
+.profile-link:hover {
+    background: #1a1a1a;
+    color: white;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .welcome-banner {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .profile-completion-widget {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (max-width: 768px) {
+    .welcome-banner {
+        padding: 24px;
+    }
+    
+    .welcome-content h1 {
+        font-size: 22px;
+        justify-content: center;
+    }
+    
+    .user-type-badge-inline {
+        font-size: 12px;
+        padding: 4px 10px;
+    }
+    
+    .booking-card {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .booking-details {
+        order: 2;
+    }
+    
+    .booking-status-badge {
+        justify-self: start;
+        order: 3;
+    }
+    
+    .booking-actions {
+        order: 4;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .stats-card {
+        margin-top: 12px;
+    }
+    
+    .completion-circle {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .completion-circle svg {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .completion-percent {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .bookings-section {
+        padding: 20px;
+    }
+    
+    .booking-sitter-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+    
+    .sitter-avatar,
+    .sitter-avatar-placeholder {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .booking-price {
+        font-size: 18px;
+    }
+    
+    .booking-actions {
+        flex-direction: column;
+    }
+}
+
+/* Enhanced Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background: white;
+    border-radius: 12px;
+    padding: 40px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #f5f5f5;
+    border-radius: 50%;
+    font-size: 24px;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.modal-close-btn:hover {
+    background: #e8e8e8;
+    color: #1a1a1a;
+}
+
+.form-header {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.form-header h2 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.form-header p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 15px;
+    transition: border-color 0.2s;
+    font-family: inherit;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #00a862;
+}
+
+.btn-full-green {
+    width: 100%;
+    padding: 14px 24px;
+    background: linear-gradient(135deg, #00a862, #00c875);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(0, 168, 98, 0.3);
+}
+
+.btn-full-green:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 168, 98, 0.4);
+}
+/* Account Management Card */
+.account-management-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.account-management-card h4 {
+    margin: 0 0 16px 0;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.role-switch-section {
+    padding: 16px 0;
+    border-bottom: 1px solid #e8e8e8;
+    margin-bottom: 16px;
+}
+
+.role-switch-section label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 12px;
+}
+
+.role-switch-section strong {
+    color: #00a862;
+    font-size: 15px;
+}
+
+.btn-switch-role,
+.btn-switch-role-profile {
+    width: 100%;
+    padding: 12px 20px;
+    background: #00a862;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+}
+
+.btn-switch-role:hover,
+.btn-switch-role-profile:hover {
+    background: #008d52;
+    transform: translateY(-2px);
+}
+
+.btn-delete-account,
+.btn-delete-account-profile {
+    width: 100%;
+    padding: 12px 20px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-delete-account:hover,
+.btn-delete-account-profile:hover {
+    background: #c82333;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .account-management-card {
+        margin-top: 12px;
+        padding: 20px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .dashboard-sidebar,
+    .invite-friend,
+    .welcome-banner,
+    .btn-action,
+    .pet-actions,
+    .modal-overlay {
+        display: none !important;
+    }
+    
+    .dashboard-main {
+        width: 100% !important;
+    }
+    
+    .booking-card {
+        page-break-inside: avoid;
+    }
+}

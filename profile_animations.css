@@ -1,0 +1,69 @@
+/* Modal Animations */
+.modal-overlay {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.modal-open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    transform: scale(0.95);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.modal-open .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+/* Fade In Up Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-up {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+}
+
+/* Element Animations */
+.verification-item {
+    opacity: 0;
+}
+
+.verification-item.fade-in-up {
+    animation-delay: var(--delay, 0s);
+}
+
+.pet-card {
+    opacity: 0;
+}
+
+.pet-card.fade-in-up {
+    animation-delay: var(--delay, 0s);
+}
+
+/* Hover Transitions */
+.btn-icon, .verify-link, .btn-add-another {
+    transition: all 0.2s ease;
+}
+
+.btn-icon:hover {
+    transform: scale(1.1);
+}
+
+.verify-link:hover {
+    color: var(--secondary-color);
+}

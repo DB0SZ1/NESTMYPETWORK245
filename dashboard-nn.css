@@ -1,0 +1,296 @@
+/* Enhanced Dashboard Styles */
+
+/* Verification Badge */
+.verification-badge-compact {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 12px 0;
+}
+
+.verification-badge-compact.verified {
+    background: #d4edda;
+    color: #155724;
+}
+
+.verification-badge-compact.unverified {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.verification-badge-compact i {
+    font-size: 14px;
+}
+
+/* Profile Card Enhancements */
+.profile-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #00a862;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #00a862 0%, #008d52 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 40px;
+}
+
+.profile-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 8px 0;
+}
+
+.profile-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.profile-link {
+    padding: 8px 16px;
+    background: #f5f5f5;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+.profile-link:hover {
+    background: #e8e8e8;
+    transform: translateY(-1px);
+}
+
+/* Account Management Card */
+.account-management-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.account-management-card h4 {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Current Role Display */
+.current-role-display {
+    margin-bottom: 12px;
+}
+
+.current-role-display label {
+    display: block;
+    font-size: 11px;
+    color: #666;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+}
+
+.role-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.role-badge.boarder {
+    background: #e3f2fd;
+    color: #1976d2;
+}
+
+.role-badge.house-sitter {
+    background: #f3e5f5;
+    color: #7b1fa2;
+}
+
+.role-badge i {
+    font-size: 14px;
+}
+
+/* Buttons */
+.btn-switch-role-compact,
+.btn-delete-account-compact {
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+}
+
+.btn-switch-role-compact {
+    background: #00a862;
+    color: white;
+}
+
+.btn-switch-role-compact:hover {
+    background: #008d52;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 168, 98, 0.3);
+}
+
+.btn-delete-account-compact {
+    background: #dc3545;
+    color: white;
+}
+
+.btn-delete-account-compact:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.account-divider {
+    height: 1px;
+    background: #e8e8e8;
+    margin: 16px 0;
+}
+
+.warning-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 11px;
+    color: #dc3545;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    padding: 10px;
+    background: #fff5f5;
+    border-radius: 6px;
+    border: 1px solid #f8d7da;
+}
+
+.warning-text i {
+    font-size: 14px;
+    margin-top: 1px;
+    flex-shrink: 0;
+}
+
+/* Empty States */
+.empty-bookings {
+    text-align: center;
+    padding: 40px 20px;
+    background: #f9f9f9;
+    border-radius: 12px;
+}
+
+.empty-bookings i {
+    font-size: 48px;
+    color: #ccc;
+    margin-bottom: 16px;
+}
+
+.empty-bookings p {
+    color: #666;
+    margin: 8px 0;
+}
+
+.helper-text {
+    font-size: 13px;
+    color: #999;
+}
+
+/* Stats Card */
+.stats-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.stats-card h4 {
+    margin: 0 0 16px 0;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #666;
+}
+
+.stat-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+.stat-value.highlight {
+    color: #00a862;
+    font-size: 16px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .account-management-card {
+        padding: 16px;
+    }
+    
+    .profile-card {
+        padding: 20px;
+    }
+}
