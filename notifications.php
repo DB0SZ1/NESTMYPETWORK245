@@ -114,12 +114,12 @@ function sendEmailNotification($to_email, $to_name, $subject, $body, $cta_text =
     try {
         // SMTP Configuration (replace with your actual credentials)
         $mail->isSMTP();
-        $mail->Host = 'smtp.gmail.com'; // Your SMTP server
-        $mail->SMTPAuth = true;
-        $mail->Username = 'your-email@gmail.com'; // Your email
-        $mail->Password = 'your-app-password'; // Your app password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
+$mail->Host = 'smtp.gmail.com';
+$mail->SMTPAuth = true;
+$mail->Username = 'youractual@gmail.com'; // Your real Gmail
+$mail->Password = 'xxxx xxxx xxxx xxxx'; // Your App Password from step 1
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port = 587;
         
         // Email settings
         $mail->setFrom('noreply@nestmypet.com', 'NestMyPet');
@@ -152,25 +152,25 @@ function getNotificationConfig($type, $data, $user) {
             'title' => 'New Booking Request',
             'message' => 'You have a new booking request',
             'subject' => 'New Booking Request - NestMyPet',
-            'email_body' => "You have received a new booking request for {$data['service_type']} from {$data['start_date']} to {$data['end_date']}.",
+            'email_body' => "You have received a new booking request for " . ($data['service_type'] ?? 'a service') . " from " . ($data['start_date'] ?? 'TBD') . " to " . ($data['end_date'] ?? 'TBD') . ".",
             'cta_text' => 'View Booking',
-            'cta_link' => "my_bookings.php?id={$data['booking_id']}"
+            'cta_link' => "my_bookings.php?id=" . ($data['booking_id'] ?? '')
         ],
         
         'booking_confirmed' => [
             'title' => 'Booking Confirmed!',
             'message' => 'Your booking has been confirmed',
             'subject' => 'Booking Confirmed - NestMyPet',
-            'email_body' => "Great news! Your booking for {$data['service_type']} has been confirmed. Your sitter will be expecting you on {$data['start_date']}.",
+            'email_body' => "Great news! Your booking for " . ($data['service_type'] ?? 'a service') . " has been confirmed. Your sitter will be expecting you on " . ($data['start_date'] ?? 'the scheduled date') . ".",
             'cta_text' => 'View Booking Details',
-            'cta_link' => "my_bookings.php?id={$data['booking_id']}"
+            'cta_link' => "my_bookings.php?id=" . ($data['booking_id'] ?? '')
         ],
         
         'booking_cancelled' => [
             'title' => 'Booking Cancelled',
             'message' => 'A booking has been cancelled',
             'subject' => 'Booking Cancellation - NestMyPet',
-            'email_body' => "Your booking for {$data['service_type']} scheduled for {$data['start_date']} has been cancelled.",
+            'email_body' => "Your booking for " . ($data['service_type'] ?? 'a service') . " scheduled for " . ($data['start_date'] ?? 'the scheduled date') . " has been cancelled.",
             'cta_text' => 'Find Another Sitter',
             'cta_link' => 'search.php'
         ],
@@ -179,19 +179,19 @@ function getNotificationConfig($type, $data, $user) {
             'title' => 'Booking Completed',
             'message' => 'Your booking is complete',
             'subject' => 'Booking Completed - Leave a Review!',
-            'email_body' => "Your booking with {$data['sitter_name']} has been completed. We hope your pet had a wonderful time! Please consider leaving a review.",
+            'email_body' => "Your booking with " . ($data['sitter_name'] ?? 'your sitter') . " has been completed. We hope your pet had a wonderful time! Please consider leaving a review.",
             'cta_text' => 'Leave a Review',
-            'cta_link' => "leave_review.php?booking_id={$data['booking_id']}"
+            'cta_link' => "leave_review.php?booking_id=" . ($data['booking_id'] ?? '')
         ],
         
         // MESSAGE NOTIFICATIONS
         'new_message' => [
             'title' => 'New Message',
-            'message' => "You have a new message from {$data['sender_name']}",
+            'message' => "You have a new message from " . ($data['sender_name'] ?? 'someone'),
             'subject' => 'New Message - NestMyPet',
-            'email_body' => "{$data['sender_name']} has sent you a message: \"{$data['message_preview']}\"",
+            'email_body' => ($data['sender_name'] ?? 'Someone') . " has sent you a message: \"" . ($data['message_preview'] ?? '') . "\"",
             'cta_text' => 'View Message',
-            'cta_link' => "messages.php?user_id={$data['sender_id']}"
+            'cta_link' => "messages.php?user_id=" . ($data['sender_id'] ?? '')
         ],
         
         // PAYMENT NOTIFICATIONS
@@ -199,16 +199,16 @@ function getNotificationConfig($type, $data, $user) {
             'title' => 'Payment Received',
             'message' => 'Payment received successfully',
             'subject' => 'Payment Confirmation - NestMyPet',
-            'email_body' => "We've received your payment of £{$data['amount']} for booking #{$data['booking_id']}. Thank you!",
+            'email_body' => "We've received your payment of £" . ($data['amount'] ?? '0.00') . " for booking #" . ($data['booking_id'] ?? '') . ". Thank you!",
             'cta_text' => 'View Transaction',
             'cta_link' => "dashboard.php"
         ],
         
         'payout_processed' => [
             'title' => 'Payout Processed',
-            'message' => "Your payout of £{$data['amount']} has been processed",
+            'message' => "Your payout of £" . ($data['amount'] ?? '0.00') . " has been processed",
             'subject' => 'Payout Processed - NestMyPet',
-            'email_body' => "Great news! Your payout of £{$data['amount']} has been processed and should arrive in your account within 2-3 business days.",
+            'email_body' => "Great news! Your payout of £" . ($data['amount'] ?? '0.00') . " has been processed and should arrive in your account within 2-3 business days.",
             'cta_text' => 'View Earnings',
             'cta_link' => 'dashboard.php'
         ],
@@ -218,7 +218,7 @@ function getNotificationConfig($type, $data, $user) {
             'title' => 'Complete Your Profile',
             'message' => 'Your profile is incomplete',
             'subject' => 'Complete Your Profile - NestMyPet',
-            'email_body' => "Welcome to NestMyPet! Please complete your profile to start {$user['is_sitter'] ? 'accepting bookings' : 'booking sitters'}.",
+            'email_body' => "Welcome to NestMyPet! Please complete your profile to start " . (($user['is_sitter'] ?? false) ? 'accepting bookings' : 'booking sitters') . ".",
             'cta_text' => 'Complete Profile',
             'cta_link' => 'edit_profile.php'
         ],
@@ -227,7 +227,7 @@ function getNotificationConfig($type, $data, $user) {
             'title' => 'Profile Verified!',
             'message' => 'Your profile has been verified',
             'subject' => 'Profile Verified - NestMyPet',
-            'email_body' => "Congratulations! Your profile has been verified. You can now start {$user['is_sitter'] ? 'accepting bookings' : 'booking trusted sitters'}.",
+            'email_body' => "Congratulations! Your profile has been verified. You can now start " . (($user['is_sitter'] ?? false) ? 'accepting bookings' : 'booking trusted sitters') . ".",
             'cta_text' => 'View Profile',
             'cta_link' => 'profile.php'
         ],
@@ -244,9 +244,9 @@ function getNotificationConfig($type, $data, $user) {
         // REVIEW NOTIFICATIONS
         'new_review' => [
             'title' => 'New Review',
-            'message' => "You received a new review from {$data['reviewer_name']}",
+            'message' => "You received a new review from " . ($data['reviewer_name'] ?? 'someone'),
             'subject' => 'New Review Received - NestMyPet',
-            'email_body' => "{$data['reviewer_name']} left you a {$data['rating']}-star review: \"{$data['review_text']}\"",
+            'email_body' => ($data['reviewer_name'] ?? 'Someone') . " left you a " . ($data['rating'] ?? '5') . "-star review: \"" . ($data['review_text'] ?? '') . "\"",
             'cta_text' => 'View Review',
             'cta_link' => 'profile.php'
         ],
@@ -272,11 +272,11 @@ function getNotificationConfig($type, $data, $user) {
         
         'reminder_booking' => [
             'title' => 'Booking Reminder',
-            'message' => "Your booking starts in {$data['days_until']} days",
+            'message' => "Your booking starts in " . ($data['days_until'] ?? 'a few') . " days",
             'subject' => 'Upcoming Booking Reminder - NestMyPet',
-            'email_body' => "This is a friendly reminder that your booking for {$data['service_type']} starts on {$data['start_date']}. Make sure everything is prepared!",
+            'email_body' => "This is a friendly reminder that your booking for " . ($data['service_type'] ?? 'a service') . " starts on " . ($data['start_date'] ?? 'soon') . ". Make sure everything is prepared!",
             'cta_text' => 'View Booking',
-            'cta_link' => "my_bookings.php?id={$data['booking_id']}"
+            'cta_link' => "my_bookings.php?id=" . ($data['booking_id'] ?? '')
         ]
     ];
     
@@ -312,7 +312,7 @@ function buildEmailTemplate($recipient_name, $body, $cta_text = null, $cta_link 
         <table cellpadding='0' cellspacing='0' width='100%' style='max-width: 600px; margin: 0 auto; background: white;'>
             <tr>
                 <td style='padding: 40px 30px; text-align: center; background: linear-gradient(135deg, #00a862, #00c875);'>
-                    <h1 style='margin: 0; color: white; font-size: 28px; font-weight: 700;'>🐾 NestMyPet</h1>
+                    <h1 style='margin: 0; color: white; font-size: 28px; font-weight: 700;'>🾠NestMyPet</h1>
                 </td>
             </tr>
             <tr>

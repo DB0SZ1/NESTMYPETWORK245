@@ -454,6 +454,18 @@ include 'header.php';
                         <button type="submit" class="btn btn-primary btn-full-green" style="display: block;">
                             <i class="fas fa-key"></i> Update Password
                         </button>
+
+                        <!-- Delete Account Section -->
+                        <div class="delete-account-section">
+                            <p class="warning-text">
+                                <i class="fa-solid fa-triangle-exclamation"></i>
+                                <span>This action is irreversible once taken. All your data will be permanently deleted.</span>
+                            </p>
+                            <button class="btn-delete-account-compact" onclick="openDeleteModal()">
+                                <i class="fa-solid fa-trash"></i>
+                                <span>Delete Account</span>
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -540,6 +552,76 @@ include 'header.php';
     margin: 0;
     cursor: pointer;
     font-weight: 400;
+}
+
+/* Added delete account section styling */
+.delete-account-section {
+    margin-top: 3rem;
+    padding: 20px;
+    background: #fff5f5;
+    border: 2px solid #ff6b6b;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.warning-text {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #c92a2a;
+    margin: 0;
+    font-weight: 500;
+}
+
+.warning-text i {
+    font-size: 20px;
+    color: #ff6b6b;
+}
+
+.btn-delete-account-compact {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-delete-account-compact:hover {
+    background: #fa5252;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+}
+
+.btn-delete-account-compact:active {
+    transform: translateY(0);
+}
+
+.btn-delete-account-compact i {
+    font-size: 16px;
+}
+
+/* Responsive: Stack on mobile */
+@media (max-width: 768px) {
+    .delete-account-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn-delete-account-compact {
+        width: 100%;
+        justify-content: center;
+    }
 }
 </style>
 

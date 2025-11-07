@@ -7,7 +7,7 @@
             <div class="footer-column footer-about-column">
                 <div class="footer-logo">
                      <a href="index.php" class="logo">
-                       <img src="logo1.png" alt="NestMyPet Logo" />
+                       <img src="newlogo.png" alt="NestMyPet Logo" />
                     </a>
                 </div>
                 <p class="footer-about">At NestMyPet, we match your furry friend with a loving, local host — someone who cares from the heart.</p>
@@ -15,16 +15,18 @@
             
             <div class="footer-column footer-help-column">
                 <h4><i class="fas fa-headset"></i> Need help? We're here for you.</h4>
+                
                 <p class="footer-help-tagline">Support that's friendly, fast & human.</p>
                 <ul>
                     <li class="footer-phone">
                         <i class="fas fa-phone"></i>
                         <a href="tel:+1234567890">+1 (234) 567-890</a>
                     </li>
+                    <li><i class="fa fa-building"></i><a href="about.php">ABOUT</a></li>
+                    <li><i class="fas fa-envelope"></i><a href="contact.php">CONTACT US</a>
                     <li><i class="fas fa-question-circle"></i><a href="info.php?page=faqs">FAQs</a></li>
-                    <li><i class="fas fa-envelope"></i><a href="info.php?page=contact">Contact Us</a></li>
-                    <li><i class="fas fa-life-ring"></i><a href="info.php?page=help">Help Center</a></li>
-                     <li><i class="fas fa-life-user"></i><a href="about.php">Help Center</a></li>
+                    <li><i class="fas fa-life-ring"></i><a href="info.php?page=help">HELP CENTER</a></li>
+                     
                 </ul>
             </div>
             

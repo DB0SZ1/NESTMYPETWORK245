@@ -14,6 +14,9 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $verification_url = null;
 $error_message = null;
+$success_message = null;
+$verification_status = null; // Track status type for UI display
+$show_status_message = false;
 
 // Initialize Stripe
 $stripeSecretKey = trim('sk_test_51RrMbj3lvfiHaIRcBGGNoiMv9n7pqV6We1iXaQUOWuPic65AHD1rQd56Docq13ik7Adt1JBWGjcjDsbGYjz9pTpb002o9k2sjG');
@@ -21,7 +24,7 @@ $stripeSecretKey = trim('sk_test_51RrMbj3lvfiHaIRcBGGNoiMv9n7pqV6We1iXaQUOWuPic6
 
 try {
     // Get user data
-    $stmt = $pdo->prepare("SELECT fullname, email, stripe_customer_id, profile_verified FROM users WHERE id = ?");
+    $stmt = $pdo->prepare("SELECT fullname, email, stripe_customer_id, profile_verified, verification_notes FROM users WHERE id = ?");
     $stmt->execute([$user_id]);
     $user = $stmt->fetch();
     
@@ -41,6 +44,38 @@ try {
         $_SESSION['info_message'] = "You can complete verification later from your dashboard.";
         header('Location: dashboard.php');
         exit();
+    }
+    
+    if ($user['verification_notes']) {
+        try {
+            $verificationSession = \Stripe\Identity\VerificationSession::retrieve($user['verification_notes']);
+            $verification_status = $verificationSession->status;
+            $show_status_message = true;
+            
+            // Handle each possible status
+            if ($verificationSession->status === 'verified') {
+                $stmt_verify = $pdo->prepare("UPDATE users SET profile_verified = 1, verification_status = 'verified' WHERE id = ?");
+                $stmt_verify->execute([$user_id]);
+                $_SESSION['success_message'] = "Identity verified successfully! Your profile is now active.";
+                header('Location: dashboard.php');
+                exit();
+            } elseif ($verificationSession->status === 'requires_input') {
+                $error_message = "⚠ Verification requires additional input. Please complete the process or try again.";
+                $verification_status = 'failed';
+            } elseif ($verificationSession->status === 'unverified') {
+                $error_message = "✗ Verification was not completed. Please start the verification process again.";
+                $verification_status = 'failed';
+            } elseif ($verificationSession->status === 'canceled') {
+                $error_message = "✗ Verification was canceled. You can start a new verification session below.";
+                $verification_status = 'canceled';
+                // Clear the old session ID so user can start fresh
+                $stmt_clear = $pdo->prepare("UPDATE users SET verification_notes = NULL WHERE id = ?");
+                $stmt_clear->execute([$user_id]);
+            }
+        } catch (\Stripe\Exception\ApiErrorException $e) {
+            // If verification session retrieval fails, allow user to start fresh
+            error_log("Verification Status Check Error: " . $e->getMessage());
+        }
     }
     
     // Create Stripe Identity Verification Session
@@ -71,7 +106,7 @@ try {
         }
     }
     
-    // Check for verification callback
+    // Check for verification callback from Stripe
     if (isset($_GET['session_id'])) {
         $session_id = $_GET['session_id'];
         
@@ -79,20 +114,24 @@ try {
             $verificationSession = \Stripe\Identity\VerificationSession::retrieve($session_id);
             
             if ($verificationSession->status === 'verified') {
-                // Update user as verified
                 $stmt_verify = $pdo->prepare("UPDATE users SET profile_verified = 1, verification_status = 'verified' WHERE id = ?");
                 $stmt_verify->execute([$user_id]);
                 
-                $_SESSION['success_message'] = "Identity verified successfully! Your profile is now active.";
-                header('Location: dashboard.php');
-                exit();
+                $success_message = "✓ Identity Verified Successfully! Your profile is now active and you can start accepting bookings.";
+                $verification_status = 'success';
             } elseif ($verificationSession->status === 'requires_input') {
-                $error_message = "Verification requires additional input. Please try again.";
+                $error_message = "⚠ Verification requires additional input. Please try again.";
+                $verification_status = 'failed';
             } elseif ($verificationSession->status === 'canceled') {
-                $error_message = "Verification was canceled. Please start again.";
+                $error_message = "✗ Verification was canceled. Please start again.";
+                $verification_status = 'canceled';
+            } elseif ($verificationSession->status === 'unverified') {
+                $error_message = "✗ Verification could not be completed. Please try again.";
+                $verification_status = 'failed';
             }
         } catch (\Stripe\Exception\ApiErrorException $e) {
             $error_message = "Error checking verification: " . $e->getMessage();
+            $verification_status = 'error';
         }
     }
     
@@ -112,25 +151,61 @@ include 'header.php';
     <div class="container">
         <div class="verification-container">
             <div class="dashboard-card verification-card">
-                <!-- Close/Skip Button -->
-                <button class="close-verification-btn" onclick="skipVerification()" title="Skip for now">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
                 
+                <!-- Dynamic icon based on verification result -->
                 <div class="verification-icon">
-                    <i class="fa-solid fa-shield-halved"></i>
+                    <?php if ($verification_status === 'success'): ?>
+                        <i class="fa-solid fa-circle-check" style="color: white;"></i>
+                    <?php elseif ($verification_status === 'failed' || $verification_status === 'canceled' || $verification_status === 'error'): ?>
+                        <i class="fa-solid fa-circle-xmark" style="color: white;"></i>
+                    <?php else: ?>
+                        <i class="fa-solid fa-shield-halved"></i>
+                    <?php endif; ?>
                 </div>
                 
-                <h1>Identity Verification Required</h1>
-                
-                <?php if ($error_message): ?>
-                    <div class="alert alert-error">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <?php echo htmlspecialchars($error_message); ?>
-                    </div>
+                <!-- Dynamic heading based on verification result -->
+                <?php if ($verification_status === 'success'): ?>
+                    <h1>Verification Successful!</h1>
+                <?php elseif ($verification_status === 'failed' || $verification_status === 'canceled' || $verification_status === 'error'): ?>
+                    <h1>Verification Failed</h1>
+                <?php else: ?>
+                    <h1>Identity Verification Required</h1>
                 <?php endif; ?>
                 
-                <?php if ($verification_url): ?>
+                <!-- Success message popup -->
+                <?php if ($success_message): ?>
+                    <div class="alert alert-success">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <div>
+                            <strong>Success!</strong>
+                            <p><?php echo htmlspecialchars($success_message); ?></p>
+                        </div>
+                    </div>
+                    <a href="dashboard.php" class="btn btn-primary btn-full-green btn-large">
+                        <i class="fa-solid fa-arrow-right"></i> Go to Dashboard
+                    </a>
+                
+                <!-- Error/failure message popup -->
+                <?php elseif ($error_message): ?>
+                    <div class="alert alert-error">
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                        <div>
+                            <strong>Verification Status:</strong>
+                            <p><?php echo htmlspecialchars($error_message); ?></p>
+                        </div>
+                    </div>
+                    <!-- Add retry and back buttons -->
+                    <div style="margin-top: 20px;">
+                        <button onclick="location.href='upload_verification.php'" class="btn btn-primary btn-full-green btn-large">
+                            <i class="fa-solid fa-redo"></i> Try Again
+                        </button>
+                        <button onclick="location.href='dashboard.php'" class="btn-link-secondary">
+                            <i class="fa-solid fa-arrow-left"></i> Back to Dashboard
+                        </button>
+                    </div>
+                
+                <!-- Normal verification flow when no status message -->
+                <?php elseif ($verification_url): ?>
                     <div class="alert alert-success">
                         <i class="fa-solid fa-circle-check"></i>
                         Verification session created! Click the button below to continue.
@@ -139,6 +214,7 @@ include 'header.php';
                         <i class="fa-solid fa-arrow-right"></i> Continue to Verification
                     </a>
                     <button onclick="skipVerification()" class="btn-link-secondary">I'll do this later</button>
+                
                 <?php else: ?>
                     <div class="verification-info">
                         <p>To ensure the safety of our community, we need to verify your identity.</p>
@@ -202,34 +278,6 @@ include 'header.php';
     position: relative;
 }
 
-/* Close/Skip Button */
-.close-verification-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: #f5f5f5;
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    z-index: 10;
-}
-
-.close-verification-btn:hover {
-    background: #e8e8e8;
-    transform: rotate(90deg);
-}
-
-.close-verification-btn i {
-    font-size: 20px;
-    color: #666;
-}
-
 .verification-icon {
     width: 100px;
     height: 100px;
@@ -257,13 +305,25 @@ include 'header.php';
     border-radius: 12px;
     margin: 20px 0;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     font-size: 15px;
 }
 
 .alert i {
     font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.alert strong {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.alert p {
+    margin: 0;
+    line-height: 1.5;
 }
 
 .alert-error {
@@ -394,13 +454,6 @@ include 'header.php';
     .step-number {
         margin: 0 auto;
     }
-    
-    .close-verification-btn {
-        width: 36px;
-        height: 36px;
-        top: 15px;
-        right: 15px;
-    }
 }
 </style>
 
@@ -410,17 +463,6 @@ function skipVerification() {
         window.location.href = 'upload_verification.php?skip=true';
     }
 }
-
-// Show confirmation message if coming from signup
-<?php if (isset($_SESSION['success_message'])): ?>
-setTimeout(function() {
-    const alertDiv = document.createElement('div');
-    alertDiv.className = 'alert alert-success';
-    alertDiv.innerHTML = '<i class="fa-solid fa-circle-check"></i> <?php echo addslashes($_SESSION['success_message']); ?>';
-    document.querySelector('.verification-card').insertBefore(alertDiv, document.querySelector('.verification-card h1'));
-    <?php unset($_SESSION['success_message']); ?>
-}, 300);
-<?php endif; ?>
 </script>
 
 <?php include 'footer.php'; ?>

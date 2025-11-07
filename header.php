@@ -584,7 +584,7 @@ if (isset($_SESSION['user_id'])) {
                 
                 <!-- Logo -->
                 <a href="index.php" class="header-logo">
-                    <img src="logo1.png" alt="NestMyPet Logo" />
+                    <img src="newlogo.png" alt="NestMyPet Logo" />
                 </a>
 
                 <!-- Centered Navigation -->
@@ -600,12 +600,7 @@ if (isset($_SESSION['user_id'])) {
                         Invite a Friend
                     </a>
                     <?php endif; ?>
-                    
-                    <a href="contact.php">
-                       
-                        Contact
-                         <i class="fas fa-phone-alt"></i>
-                    </a>
+                   
                 </nav>
 
                 <!-- Right Side Actions -->
@@ -664,7 +659,6 @@ if (isset($_SESSION['user_id'])) {
             <ul>
                 <li><a href="index.php"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="search.php"><i class="fas fa-search"></i> View Sitters</a></li>
-                <li><a href="contact.php"><i class="fas fa-phone-alt"></i> Contact</a></li>
                 
                 <?php if (isset($_SESSION['user_id'])): ?>
                     <li><a href="messages.php">

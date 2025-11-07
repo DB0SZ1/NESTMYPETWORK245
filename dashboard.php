@@ -681,18 +681,6 @@ include 'profile_completion_modal.php';
                     <div class="account-divider"></div>
                     <?php endif; ?>
                     
-                    <!-- Delete Account Section -->
-                    <div class="delete-account-section">
-                        <p class="warning-text">
-                            <i class="fa-solid fa-triangle-exclamation"></i>
-                            <span>This action is irreversible once taken. All your data will be permanently deleted.</span>
-                        </p>
-                        <button class="btn-delete-account-compact" onclick="openDeleteModal()">
-                            <i class="fa-solid fa-trash"></i>
-                            <span>Delete Account</span>
-                        </button>
-                    </div>
-                </div>
 
             </section>
         </div>

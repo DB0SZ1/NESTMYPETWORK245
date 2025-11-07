@@ -88,51 +88,27 @@ try {
             
             $modal_content = [
                 'type' => 'sitter',
-                'icon' => 'fa-paw',
-                'title' => 'Complete Your Sitter Profile',
-                'message' => 'You\'re almost ready to start accepting bookings! Please complete these important steps to verify your profile.',
-                'missing_items' => [],
-                'cta_text' => 'Complete Profile Now',
-                'cta_link' => 'edit_profile.php'
+                'icon' => 'fa-shield-halved',
+                'title' => 'Complete Your Verification',
+                'message' => 'To start accepting bookings, we need to verify your identity through our secure verification process.',
+                'stripe_requirements' => [
+                    'Government-issued ID (Passport, Driver\'s License, or National ID Card)',
+                    'Matching selfie photo for identity verification'
+                ],
+                'cta_text' => 'Complete Verification Now',
+                'cta_link' => 'upload_verification.php'
             ];
-            
-            // Check critical missing items
-            if (empty($host_profile['training_video_watched']) || !$host_profile['training_video_watched']) {
-                $modal_content['missing_items'][] = '<strong>Watch Training Video</strong> (Required)';
-            }
-            if (empty($host_profile['id_verification_path'])) {
-                $modal_content['missing_items'][] = '<strong>Upload Government-issued ID</strong> (Required)';
-            }
-            if ($host_profile['offers_home_sitting'] && $host_profile['dbs_check_status'] === 'not_required') {
-                $modal_content['missing_items'][] = '<strong>DBS Check</strong> (Required for home sitting)';
-            }
-            if (empty($host_profile['profile_photo_living_room']) || empty($host_profile['profile_photo_sleeping_area'])) {
-                $modal_content['missing_items'][] = 'Home photos (helps build trust with pet owners)';
-            }
-            
-            // Check user profile photo
-            $stmt_user = $pdo->prepare("SELECT profile_photo_path FROM users WHERE id = ?");
-            $stmt_user->execute([$user_id]);
-            $user_data = $stmt_user->fetch();
-            if (empty($user_data['profile_photo_path'])) {
-                $modal_content['missing_items'][] = 'Profile photo (increases booking chances by 70%)';
-            }
         }
         
         // If nothing is missing, mark as complete and don't show modal
-        if (empty($modal_content['missing_items'])) {
+        if ($user['role'] === 'owner' && empty($modal_content['missing_items'])) {
             $show_modal = false;
             // Mark profile as verified
             $stmt_update = $pdo->prepare("UPDATE users SET profile_verified = 1 WHERE id = ?");
             $stmt_update->execute([$user_id]);
             
-            if ($user['role'] === 'owner') {
-                $stmt_owner_update = $pdo->prepare("UPDATE owner_profiles SET profile_completed = 1 WHERE user_id = ?");
-                $stmt_owner_update->execute([$user_id]);
-            } else {
-                $stmt_host_update = $pdo->prepare("UPDATE host_profiles SET profile_completed = 1 WHERE user_id = ?");
-                $stmt_host_update->execute([$user_id]);
-            }
+            $stmt_owner_update = $pdo->prepare("UPDATE owner_profiles SET profile_completed = 1 WHERE user_id = ?");
+            $stmt_owner_update->execute([$user_id]);
         }
     }
     
@@ -146,7 +122,7 @@ try {
 }
 ?>
 
-<?php if ($show_modal && !empty($modal_content['missing_items'])): ?>
+<?php if ($show_modal): ?>
 <div class="profile-completion-modal-overlay" id="profileCompletionModal">
     <div class="profile-completion-modal">
         <button class="modal-close-btn" onclick="closeProfileModal()">&times;</button>
@@ -158,6 +134,7 @@ try {
         <h2><?php echo $modal_content['title']; ?></h2>
         <p class="modal-message"><?php echo $modal_content['message']; ?></p>
         
+        <?php if ($modal_content['type'] === 'owner' && !empty($modal_content['missing_items'])): ?>
         <div class="missing-items-list">
             <h4>What's Missing:</h4>
             <ul>
@@ -166,11 +143,19 @@ try {
                 <?php endforeach; ?>
             </ul>
         </div>
+        <?php elseif ($modal_content['type'] === 'sitter'): ?>
+        <div class="verification-requirements">
+            <h4>What Stripe Will Request:</h4>
+            <ul>
+                <?php foreach ($modal_content['stripe_requirements'] as $requirement): ?>
+                    <li><i class="fa-solid fa-check-circle"></i> <?php echo $requirement; ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
         
-        <?php if ($modal_content['type'] === 'sitter'): ?>
         <div class="verification-notice">
-            <i class="fa-solid fa-shield-halved"></i>
-            <p><strong>Important:</strong> You cannot accept bookings until your profile is fully verified. This protects both you and pet owners.</p>
+            <i class="fa-solid fa-lock"></i>
+            <p><strong>Your Privacy:</strong> All verification data is securely encrypted and handled by Stripe. We never store your ID images. Verification usually completes instantly.</p>
         </div>
         <?php endif; ?>
         
@@ -322,9 +307,50 @@ try {
     flex-shrink: 0;
 }
 
+.verification-requirements {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 24px;
+    margin: 24px 0;
+    text-align: left;
+}
+
+.verification-requirements h4 {
+    color: #333;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.verification-requirements ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.verification-requirements li {
+    padding: 12px 0;
+    border-bottom: 1px solid #e8e8e8;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #333;
+    font-size: 15px;
+}
+
+.verification-requirements li:last-child {
+    border-bottom: none;
+}
+
+.verification-requirements li i {
+    color: #00a862;
+    font-size: 18px;
+    flex-shrink: 0;
+}
+
 .verification-notice {
-    background: #fff3cd;
-    border: 1px solid #ffc107;
+    background: #e8f5e9;
+    border: 1px solid #4caf50;
     border-radius: 8px;
     padding: 16px;
     display: flex;
@@ -335,7 +361,7 @@ try {
 }
 
 .verification-notice i {
-    color: #ffc107;
+    color: #00a862;
     font-size: 24px;
     flex-shrink: 0;
     margin-top: 2px;
@@ -343,7 +369,7 @@ try {
 
 .verification-notice p {
     margin: 0;
-    color: #856404;
+    color: #2e7d32;
     font-size: 14px;
     line-height: 1.5;
 }
@@ -406,6 +432,10 @@ try {
     .missing-items-list {
         padding: 20px 16px;
     }
+    
+    .verification-requirements {
+        padding: 20px 16px;
+    }
 }
 </style>
 
@@ -419,13 +449,5 @@ function closeProfileModal() {
         }, 300);
     }
 }
-
-// Prevent closing on outside click for first-time users
-document.getElementById('profileCompletionModal')?.addEventListener('click', function(e) {
-    if (e.target === this) {
-        // Optional: allow closing by clicking outside
-        // closeProfileModal();
-    }
-});
 </script>
 <?php endif; ?>

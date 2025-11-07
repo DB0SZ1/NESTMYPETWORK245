@@ -423,19 +423,11 @@ include 'header.php';
                     <legend>Step 4: Experience & Services</legend>
                     
                     <div class="form-group">
-                        <label for="experience">Years of experience with pets *</label>
-                        <input type="number" id="experience" name="experience" min="0" required class="form-control">
-                    </div>
-                    
-                    <div class="form-group">
                         <label for="background">Tell us about your background with animals *</label>
                         <textarea id="background" name="background" rows="4" required placeholder="Share your experience, passion, and any relevant information"></textarea>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="qualifications">Relevant Training or Qualifications</label>
-                        <textarea id="qualifications" name="qualifications" rows="2" placeholder="Certifications, courses, or professional training"></textarea>
-                    </div>
+                
                     
                     <div class="form-group">
                         <label for="headline">Service Headline * (max 100 characters)</label>

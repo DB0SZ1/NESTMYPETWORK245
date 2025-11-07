@@ -1,5 +1,5 @@
 <?php
-// --- Database Connection --
+// --- Database Connection ---
 // These are the standard details for a local XAMPP server.
 $host = '127.0.0.1'; // or 'localhost'
 $dbname = 'nestpet';      // The database you created in Step 1
@@ -24,3 +24,7 @@ try {
     exit('Failed to connect to the database. Please check your credentials in db.php and ensure the database exists.');
 }
 
+// --- Auto-load Notification System ---
+// This single line activates the entire notification system automatically!
+// No other code changes needed anywhere else in your project.
+require_once __DIR__ . '/notification_dispatcher.php';
